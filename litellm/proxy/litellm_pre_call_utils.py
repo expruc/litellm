@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 from fastapi import Request
 from starlette.datastructures import Headers
+from urllib.parse import unquote
 
 import litellm
 from litellm._logging import verbose_logger, verbose_proxy_logger
@@ -339,7 +340,7 @@ class LiteLLMProxyRequestSetup:
         """
         for header, value in headers.items():
             if header.lower() == key.lower():
-                return value
+                return unquote(value)
         return None
 
     @staticmethod
